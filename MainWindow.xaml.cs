@@ -25,7 +25,7 @@ namespace FileInstaller
         //変数宣言
         string FilePathFrom;
         string FilePathTo;
-        string fileName;
+        string FileNameTo;
 
         public MainWindow()
         {
@@ -42,7 +42,7 @@ namespace FileInstaller
                 // ダイアログが表示されたときの初期ディレクトリを指定
                 InitialDirectory = "適当なパス",
             };
-            FilePath.Text = fileSelectDialog.FileName;
+            FilePathFrom = fileSelectDialog.FileName;
         }
 
         private void FileSelectTo_Click(object sender, RoutedEventArgs e)
@@ -53,7 +53,7 @@ namespace FileInstaller
                 IsFolderPicker = true,
                 InitialDirectory = "C:|Program Files"
             };
-            FilePath_Copy.Text = fileSelectDialog.FileName;
+            FilePathTo = fileSelectDialog.FileName;
         }
         public void Run(object sender, RoutedEventArgs e)
         {
@@ -65,7 +65,7 @@ namespace FileInstaller
             {
                 System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(@"C:\Program Files");
                 System.IO.DirectoryInfo[] subFolders = di.GetDirectories("*", System.IO.SearchOption.AllDirectories);
-                string FileNameTo = System.IO.Path.GetFileName(FilePathTo);
+                FileNameTo = System.IO.Path.GetFileName(FilePathTo);
                 int index1 = Array.IndexOf(subFolders, FileNameTo);
                 if (index1 == -1)
                 {
