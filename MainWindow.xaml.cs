@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,12 +25,14 @@ namespace FileInstaller
         //変数宣言
         string FilePathFrom;
         string FilePathTo;
+        string fileName;
+
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private void FileSelectButton_Click(object sender, RoutedEventArgs e)
+        private void FileSelectButtonFrom_Click(object sender, RoutedEventArgs e)
         {
             var fileSelectDialog = new CommonOpenFileDialog
             {
@@ -39,16 +42,48 @@ namespace FileInstaller
                 // ダイアログが表示されたときの初期ディレクトリを指定
                 InitialDirectory = "適当なパス",
             };
+            FilePath.Text = fileSelectDialog.FileName;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void FileSelectTo_Click(object sender, RoutedEventArgs e)
         {
             var fileSelectDialog = new CommonOpenFileDialog
             {
                 Title = "SelectFile",
                 IsFolderPicker = true,
-                InitialDirectory = "C:/Program Files"
+                InitialDirectory = "C:|Program Files"
             };
+            FilePath_Copy.Text = fileSelectDialog.FileName;
+        }
+        public void Run(object sender, RoutedEventArgs e)
+        {
+            if(FilePathFrom == null | FilePathTo == null)
+            {
+                errorWindow();
+            }
+            else
+            {
+                System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(@"C:\Program Files");
+                System.IO.DirectoryInfo[] subFolders = di.GetDirectories("*", System.IO.SearchOption.AllDirectories);
+                string FileNameTo = System.IO.Path.GetFileName(FilePathTo);
+                int index1 = Array.IndexOf(subFolders, FileNameTo);
+                if (index1 == -1)
+                {
+                    Directory.CreateDirectory(FilePathTo);
+                }
+                System.IO.File.Copy(FilePathFrom, FileNameTo, true);
+            }
+        }
+
+        public void errorWindow()
+        {
+            Warning WarningWindow= new Warning();
+            WarningWindow.Show();
+        }
+
+        private void RunButton_Click(object sender, RoutedEventArgs e)
+        {
+            Run(sender, e);
         }
     }
 }
