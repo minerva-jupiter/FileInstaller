@@ -14,11 +14,8 @@
         </Grid.ColumnDefinitions>
         <Button x:Name="FileSelectButtonFrom" Content="Select File or Folder." HorizontalAlignment="Left" Margin="423,143,0,0" VerticalAlignment="Top" Background="White" Click="FileSelectButtonFrom_Click" Grid.Column="2"/>
         <TextBlock x:Name="FilePath" HorizontalAlignment="Left" Margin="135,143,0,0" TextWrapping="Wrap" Text="FilePath" VerticalAlignment="Top" Height="20" Width="288" Grid.Column="2"/>
-        <TextBlock x:Name="FilePath_Copy" HorizontalAlignment="Left" Margin="135,270,0,0" TextWrapping="Wrap" Text="FilePath" VerticalAlignment="Top" Height="20" Width="288" Grid.Column="2"/>
         <Label Grid.Column="2" Content="Application file" HorizontalAlignment="Left" Margin="254,81,0,0" VerticalAlignment="Top" FontSize="22"/>
-        <Label Grid.Column="2" Content="Path to install" HorizontalAlignment="Left" Margin="261,217,0,0" VerticalAlignment="Top" FontSize="22"/>
-        <Button x:Name="FileSelectTo" Grid.Column="2" Content="Select File or Folder" HorizontalAlignment="Left" Margin="423,270,0,0" VerticalAlignment="Top" BorderBrush="White" Background="White" Click="FileSelectTo_Click"/>
-        <Button x:Name="RunButton" Grid.Column="2" Content="Run" HorizontalAlignment="Left" Margin="299,316,0,0" VerticalAlignment="Top" Background="White" FontSize="36" Click="RunButton_Click"/>
+        <Button x:Name="RunButton" Grid.Column="2" Content="Run" HorizontalAlignment="Left" Margin="300,252,0,0" VerticalAlignment="Top" Background="White" FontSize="36" Click="RunButton_Click"/>
 
     </Grid>
 </Window>

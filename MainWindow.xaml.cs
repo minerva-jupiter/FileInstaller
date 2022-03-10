@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using Microsoft.VisualBasic.FileIO;
 
 namespace FileInstaller
 {
@@ -24,8 +25,8 @@ namespace FileInstaller
     {
         //変数宣言
         string FilePathFrom;
-        string FilePathTo;
-        string FileNameTo;
+        string FilePathTo = @"C:\Program Files\";
+
 
         public MainWindow()
         {
@@ -34,49 +35,45 @@ namespace FileInstaller
 
         private void FileSelectButtonFrom_Click(object sender, RoutedEventArgs e)
         {
-            var fileSelectDialog = new CommonOpenFileDialog
+            using (var cofd = new CommonOpenFileDialog()
             {
-                Title = "SelectFile",
-                // フォルダ選択ダイアログの場合は true
+                Title = "フォルダを選択してください",
+                InitialDirectory = @"C:\Program Files\",
+                // フォルダ選択モードにする
                 IsFolderPicker = true,
-                // ダイアログが表示されたときの初期ディレクトリを指定
-                InitialDirectory = "適当なパス",
-            };
-            FilePathFrom = fileSelectDialog.FileName;
+            })
+            {
+                if (cofd.ShowDialog() != CommonFileDialogResult.Ok)
+                {
+                    return;
+                }
+
+                // FileNameで選択されたフォルダを取得する
+                System.Windows.MessageBox.Show($"{cofd.FileName}を選択しました");
+
+                FilePathFrom = cofd.FileName;
+                FilePath.Text = cofd.FileName;
+                FilePathTo = @"C:\Program Files\" + System.IO.Path.GetFileName(FilePathFrom);
+                System.Windows.MessageBox.Show("To" + FilePathTo + "From" + FilePathFrom);
+            }
         }
 
-        private void FileSelectTo_Click(object sender, RoutedEventArgs e)
-        {
-            var fileSelectDialog = new CommonOpenFileDialog
-            {
-                Title = "SelectFile",
-                IsFolderPicker = true,
-                InitialDirectory = "C:|Program Files"
-            };
-            FilePathTo = fileSelectDialog.FileName;
-        }
         public void Run(object sender, RoutedEventArgs e)
         {
-            if(FilePathFrom == null | FilePathTo == null)
+            //インストール元と先ファイルがあるか確認。
+            if(FilePathFrom == null)
             {
                 errorWindow();
             }
             else
             {
-                System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(@"C:\Program Files");
-                System.IO.DirectoryInfo[] subFolders = di.GetDirectories("*", System.IO.SearchOption.AllDirectories);
-                FileNameTo = System.IO.Path.GetFileName(FilePathTo);
-                int index1 = Array.IndexOf(subFolders, FileNameTo);
-                if (index1 == -1)
-                {
-                    Directory.CreateDirectory(FilePathTo);
-                }
-                System.IO.File.Copy(FilePathFrom, FileNameTo, true);
+                FileSystem.CopyDirectory(FilePathFrom, FilePathTo, true);
             }
         }
 
         public void errorWindow()
         {
+            //ファイルが選択されていません。の画面を表示
             Warning WarningWindow= new Warning();
             WarningWindow.Show();
         }
