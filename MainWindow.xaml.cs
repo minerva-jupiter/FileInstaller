@@ -49,12 +49,11 @@ namespace FileInstaller
                 }
 
                 // FileNameで選択されたフォルダを取得する
-                System.Windows.MessageBox.Show($"{cofd.FileName}を選択しました");
+                System.Windows.MessageBox.Show($"You selected '{cofd.FileName}'");
 
                 FilePathFrom = cofd.FileName;
                 FilePath.Text = cofd.FileName;
                 FilePathTo = @"C:\Program Files\" + System.IO.Path.GetFileName(FilePathFrom);
-                System.Windows.MessageBox.Show("To" + FilePathTo + "From" + FilePathFrom);
             }
         }
 
@@ -68,14 +67,14 @@ namespace FileInstaller
             else
             {
                 FileSystem.CopyDirectory(FilePathFrom, FilePathTo, true);
+                System.Windows.MessageBox.Show("Done!");
             }
         }
 
         public void errorWindow()
         {
             //ファイルが選択されていません。の画面を表示
-            Warning WarningWindow= new Warning();
-            WarningWindow.Show();
+            System.Windows.MessageBox.Show("You forget to select a file");
         }
 
         private void RunButton_Click(object sender, RoutedEventArgs e)
