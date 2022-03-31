@@ -6,16 +6,17 @@
         xmlns:local="clr-namespace:FileInstaller"
         mc:Ignorable="d"
         Title="FileInstaller" Height="450" Width="800">
-    <Grid>
+    <Grid Background="Black">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="57*"/>
             <ColumnDefinition Width="11*"/>
-            <ColumnDefinition Width="732*"/>
+            <ColumnDefinition Width="13*"/>
+            <ColumnDefinition Width="719*"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="FileSelectButtonFrom" Content="Select File or Folder." HorizontalAlignment="Left" Margin="423,143,0,0" VerticalAlignment="Top" Background="White" Click="FileSelectButtonFrom_Click" Grid.Column="2"/>
-        <TextBlock x:Name="FilePath" HorizontalAlignment="Left" Margin="135,143,0,0" TextWrapping="Wrap" Text="FilePath" VerticalAlignment="Top" Height="20" Width="288" Grid.Column="2"/>
-        <Label Grid.Column="2" Content="Application file" HorizontalAlignment="Left" Margin="254,81,0,0" VerticalAlignment="Top" FontSize="22"/>
-        <Button x:Name="RunButton" Grid.Column="2" Content="Run" HorizontalAlignment="Left" Margin="300,252,0,0" VerticalAlignment="Top" Background="White" FontSize="36" Click="RunButton_Click"/>
+        <Button x:Name="FileSelectButtonFrom" Content="Select File or Folder." HorizontalAlignment="Left" Margin="410,143,0,0" VerticalAlignment="Top" Background="White" Click="FileSelectButtonFrom_Click" Grid.Column="3"/>
+        <TextBlock x:Name="FilePath" HorizontalAlignment="Left" Margin="122,143,0,0" TextWrapping="Wrap" Text="FilePath" VerticalAlignment="Top" Height="20" Width="288" Grid.Column="3" Foreground="Black" Background="White"/>
+        <Label Grid.Column="3" Content="Application file" HorizontalAlignment="Left" Margin="241,81,0,0" VerticalAlignment="Top" FontSize="22"/>
+        <Button x:Name="RunButton" Grid.Column="3" Content="Run" HorizontalAlignment="Left" Margin="287,252,0,0" VerticalAlignment="Top" Background="White" FontSize="36" Click="RunButton_Click"/>
 
     </Grid>
 </Window>
