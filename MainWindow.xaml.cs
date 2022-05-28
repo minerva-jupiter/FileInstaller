@@ -27,6 +27,7 @@ namespace FileInstaller
         string FilePathFrom;
         string FilePathTo = @"C:\Program Files\";
         bool isCreateDesktopShortcut = false;
+        bool isSingupStartMenu = false;
 
 
         public MainWindow()
@@ -71,6 +72,10 @@ namespace FileInstaller
                 if (isCreateDesktopShortcut == true)
                 {
                     CreateShortCut();
+                }
+                if(isSingupStartMenu == true)
+                {
+                    SingupStartMenu();
                 }
                 FileSystem.CopyDirectory(FilePathFrom, FilePathTo, true);
                 System.Windows.MessageBox.Show("Done!");
@@ -122,6 +127,42 @@ namespace FileInstaller
         private void DesktopShortcut_Checked(object sender, RoutedEventArgs e)
         {
             isCreateDesktopShortcut = true;
+        }
+
+        public void SingupStartMenu()
+        {
+            string fileNameFrom = System.IO.Path.GetFileName(FilePathFrom);
+            //作成するショートカットのパス
+            string shortcutPath = System.IO.Path.Combine(
+                Environment.GetFolderPath(System.Environment.SpecialFolder.DesktopDirectory),
+                fileNameFrom + ".lnk");
+            //ショートカットのリンク先
+            string targetPath = FilePathTo;
+
+            //WshShellを作成
+            Type t = Type.GetTypeFromCLSID(new Guid("72C24DD5-D70A-438B-8A42-98424B88AFB8"));
+            dynamic shell = Activator.CreateInstance(t);
+
+            //WshShortcutを作成
+            var shortcut = shell.CreateShortcut(shortcutPath);
+
+            //リンク先
+            shortcut.TargetPath = targetPath;
+            //アイコンのパス
+            shortcut.IconLocation = shortcutPath + ",0";
+            //その他のプロパティも同様に設定できるため、省略
+
+            //ショートカットを作成
+            shortcut.Save();
+
+            //後始末
+            System.Runtime.InteropServices.Marshal.FinalReleaseComObject(shortcut);
+            System.Runtime.InteropServices.Marshal.FinalReleaseComObject(shell);
+        }
+
+        private void Sing_up_at_start_menu_Checked(object sender, RoutedEventArgs e)
+        {
+            isSingupStartMenu = true;
         }
     }
 }
