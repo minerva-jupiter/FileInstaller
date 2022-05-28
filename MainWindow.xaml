@@ -17,6 +17,7 @@
         <TextBlock x:Name="FilePath" HorizontalAlignment="Left" Margin="122,143,0,0" TextWrapping="Wrap" Text="FilePath" VerticalAlignment="Top" Height="20" Width="288" Grid.Column="3" Foreground="White" Background="Black"/>
         <Label Grid.Column="3" Content="Application file" HorizontalAlignment="Left" Margin="241,81,0,0" VerticalAlignment="Top" FontSize="22"/>
         <Button x:Name="RunButton" Grid.Column="3" Content="Run" HorizontalAlignment="Left" Margin="287,252,0,0" VerticalAlignment="Top" Background="Black" FontSize="36" Click="RunButton_Click" Foreground="White" BorderBrush="White"/>
+        <RadioButton x:Name="DesktopShortcut" Grid.Column="3" Content="CreateDesktopShortcut" HorizontalAlignment="Left" Margin="124,0,0,0" VerticalAlignment="Center" Background="White" BorderBrush="White" Foreground="White" Checked="DesktopShortcut_Checked"/>
 
     </Grid>
 </Window>

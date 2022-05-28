@@ -26,6 +26,7 @@ namespace FileInstaller
         //変数宣言
         string FilePathFrom;
         string FilePathTo = @"C:\Program Files\";
+        bool isCreateDesktopShortcut = false;
 
 
         public MainWindow()
@@ -66,6 +67,11 @@ namespace FileInstaller
             }
             else
             {
+                //デスクトップショートカットを作成するかを確認
+                if (isCreateDesktopShortcut == true)
+                {
+                    CreateShortCut();
+                }
                 FileSystem.CopyDirectory(FilePathFrom, FilePathTo, true);
                 System.Windows.MessageBox.Show("Done!");
             }
@@ -80,6 +86,42 @@ namespace FileInstaller
         private void RunButton_Click(object sender, RoutedEventArgs e)
         {
             Run(sender, e);
+        }
+
+        public void CreateShortCut()
+        {
+            string fileNameFrom = System.IO.Path.GetFileName(FilePathFrom);
+            //作成するショートカットのパス
+            string shortcutPath = System.IO.Path.Combine(
+                Environment.GetFolderPath(System.Environment.SpecialFolder.DesktopDirectory),
+                fileNameFrom + ".lnk");
+            //ショートカットのリンク先
+            string targetPath = FilePathTo;
+
+            //WshShellを作成
+            Type t = Type.GetTypeFromCLSID(new Guid("72C24DD5-D70A-438B-8A42-98424B88AFB8"));
+            dynamic shell = Activator.CreateInstance(t);
+
+            //WshShortcutを作成
+            var shortcut = shell.CreateShortcut(shortcutPath);
+
+            //リンク先
+            shortcut.TargetPath = targetPath;
+            //アイコンのパス
+            shortcut.IconLocation = shortcutPath + ",0";
+            //その他のプロパティも同様に設定できるため、省略
+
+            //ショートカットを作成
+            shortcut.Save();
+
+            //後始末
+            System.Runtime.InteropServices.Marshal.FinalReleaseComObject(shortcut);
+            System.Runtime.InteropServices.Marshal.FinalReleaseComObject(shell);
+        }
+
+        private void DesktopShortcut_Checked(object sender, RoutedEventArgs e)
+        {
+            isCreateDesktopShortcut = true;
         }
     }
 }
