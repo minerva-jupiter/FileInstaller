@@ -133,9 +133,7 @@ namespace FileInstaller
         {
             string fileNameFrom = System.IO.Path.GetFileName(FilePathFrom);
             //作成するショートカットのパス
-            string shortcutPath = System.IO.Path.Combine(
-                Environment.GetFolderPath(System.Environment.SpecialFolder.DesktopDirectory),
-                fileNameFrom + ".lnk");
+            string shortcutPath = @"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\" + fileNameFrom + ".lnk";
             //ショートカットのリンク先
             string targetPath = FilePathTo;
 
