@@ -148,6 +148,8 @@ namespace FileInstaller
             shortcut.TargetPath = targetPath;
             //アイコンのパス
             shortcut.IconLocation = shortcutPath + ",0";
+            // ③作業フォルダ
+            shortcut.WorkingDirectory = FilePathTo;
             //その他のプロパティも同様に設定できるため、省略
 
             //ショートカットを作成
