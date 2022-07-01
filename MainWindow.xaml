@@ -13,12 +13,17 @@
             <ColumnDefinition Width="13*"/>
             <ColumnDefinition Width="719*"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="FileSelectButtonFrom" Content="Select File or Folder." HorizontalAlignment="Left" Margin="410,143,0,0" VerticalAlignment="Top" Background="Black" Click="FileSelectButtonFrom_Click" Grid.Column="3" Foreground="White" BorderBrush="White"/>
-        <TextBlock x:Name="FilePath" HorizontalAlignment="Left" Margin="122,143,0,0" TextWrapping="Wrap" Text="FilePath" VerticalAlignment="Top" Height="20" Width="288" Grid.Column="3" Foreground="White" Background="Black"/>
-        <Label Grid.Column="3" Content="Application file" HorizontalAlignment="Left" Margin="241,81,0,0" VerticalAlignment="Top" FontSize="22"/>
-        <Button x:Name="RunButton" Grid.Column="3" Content="Run" HorizontalAlignment="Left" Margin="287,252,0,0" VerticalAlignment="Top" Background="Black" FontSize="36" Click="RunButton_Click" Foreground="White" BorderBrush="White"/>
-        <RadioButton x:Name="DesktopShortcut" Grid.Column="3" Content="CreateDesktopShortcut" HorizontalAlignment="Left" Margin="124,0,0,0" VerticalAlignment="Center" Background="White" BorderBrush="White" Foreground="White" Checked="DesktopShortcut_Checked"/>
-        <RadioButton x:Name="Sing_up_at_start_menu" Grid.Column="3" Content="SingUpStartMenu" HorizontalAlignment="Left" Margin="410,0,0,0" VerticalAlignment="Center" Background="White" BorderBrush="White" Foreground="White" Checked="Sing_up_at_start_menu_Checked"/>
+        <Button x:Name="FileSelectButtonFrom" Content="Select File or Folder." HorizontalAlignment="Left" Margin="412,120,0,0" VerticalAlignment="Top" Background="Black" Click="FileSelectButtonFrom_Click" Grid.Column="3" Foreground="White" BorderBrush="White"/>
+        <TextBlock x:Name="FilePath" HorizontalAlignment="Left" Margin="124,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Width="288" Grid.Column="3" Foreground="White" Background="Black" Text="Where program File"/>
+        <Label Grid.Column="3" HorizontalAlignment="Left" Margin="241,81,0,0" VerticalAlignment="Top" FontSize="22"/>
+        <Button x:Name="RunButton" Grid.Column="3" Content="Run" HorizontalAlignment="Left" Margin="285,320,0,0" VerticalAlignment="Top" Background="Black" FontSize="36" Click="RunButton_Click" Foreground="White" BorderBrush="White"/>
+        <RadioButton x:Name="DesktopShortcut" Grid.Column="3" Content="CreateDesktopShortcut" HorizontalAlignment="Left" Margin="122,277,0,0" VerticalAlignment="Top" Background="White" BorderBrush="White" Foreground="White" Checked="DesktopShortcut_Checked"/>
+        <RadioButton x:Name="Sing_up_at_start_menu" Grid.Column="3" Content="SingUpStartMenu" HorizontalAlignment="Left" Margin="408,277,0,0" VerticalAlignment="Top" Background="White" BorderBrush="White" Foreground="White" Checked="Sing_up_at_start_menu_Checked"/>
+        <Label x:Name="Install_From" Grid.Column="3" Content="Install From" HorizontalAlignment="Left" Margin="279,86,0,0" VerticalAlignment="Top" Foreground="White" FontSize="14"/>
+        <Button x:Name="FileSelectButtonTo" Content="Select File or Folder." HorizontalAlignment="Left" Margin="412,203,0,0" VerticalAlignment="Top" Background="Black" Click="FileSelectButtonTo_Click" Grid.Column="3" Foreground="White" BorderBrush="White"/>
+        <TextBlock x:Name="FilePath_To" HorizontalAlignment="Left" Margin="124,203,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Width="288" Grid.Column="3" Foreground="White" Background="Black" Text="Where you want to install"/>
+        <Label Grid.Column="3" HorizontalAlignment="Left" Margin="241,164,0,0" VerticalAlignment="Top" FontSize="22"/>
+        <Label x:Name="Install_to" Grid.Column="3" Content="Install To" HorizontalAlignment="Left" Margin="279,169,0,0" VerticalAlignment="Top" Foreground="White" FontSize="14"/>
 
     </Grid>
 </Window>

@@ -101,7 +101,7 @@ namespace FileInstaller
                 Environment.GetFolderPath(System.Environment.SpecialFolder.DesktopDirectory),
                 fileNameFrom + ".lnk");
             //ショートカットのリンク先
-            string targetPath = FilePathTo;
+            string targetPath = FilePath_To.Text;
 
             //WshShellを作成
             Type t = Type.GetTypeFromCLSID(new Guid("72C24DD5-D70A-438B-8A42-98424B88AFB8"));
@@ -163,6 +163,29 @@ namespace FileInstaller
         private void Sing_up_at_start_menu_Checked(object sender, RoutedEventArgs e)
         {
             isSingupStartMenu = true;
+        }
+
+        private void FileSelectButtonTo_Click(object sender, RoutedEventArgs e)
+        {
+            using (var cofd = new CommonOpenFileDialog()
+            {
+                Title = "フォルダを選択してください",
+                InitialDirectory = @"C:\Program Files\",
+                // フォルダ選択モードにする
+                IsFolderPicker = true,
+            })
+            {
+                if (cofd.ShowDialog() != CommonFileDialogResult.Ok)
+                {
+                    return;
+                }
+
+                // FileNameで選択されたフォルダを取得する
+                System.Windows.MessageBox.Show($"You selected '{cofd.FileName}'");
+
+                FilePath_To.Text = cofd.FileName;
+                FilePathTo = cofd.FileName + System.IO.Path.GetFileName(FilePathFrom);
+            }
         }
     }
 }
