@@ -25,9 +25,7 @@ namespace FileInstaller
     {
         //変数宣言
         string FilePathTo = @"C:\Program Files\";
-        bool isCreateDesktopShortcut = false;
-        bool isSingupStartMenu = false;
-
+        string shortcutkey;
 
         public MainWindow()
         {
@@ -54,6 +52,7 @@ namespace FileInstaller
 
                 FilePath.Text = cofd.FileName;
                 FilePathTo = @"C:\Program Files\" + System.IO.Path.GetFileName(FilePath.Text);
+                FilePath_To.Text = FilePathTo;
             }
         }
 
@@ -67,13 +66,12 @@ namespace FileInstaller
             else
             {
                 //デスクトップショートカットを作成するかを確認
-                if (isCreateDesktopShortcut == true)
+                if (DesktopShortcut1.IsChecked == true)
                 {
-                    CreateShortCut(System.IO.Path.Combine(
-                    Environment.GetFolderPath(System.Environment.SpecialFolder.DesktopDirectory),
-                    System.IO.Path.GetFileName(FilePath.Text) + ".lnk"));
+                    shortcutkey = Environment.GetFolderPath(System.Environment.SpecialFolder.DesktopDirectory) +@"\" + System.IO.Path.GetFileNameWithoutExtension(FilePath_To.Text)+ ".lnk";
+                    CreateShortCut(shortcutkey);
                 }
-                if(isSingupStartMenu == true)
+                if(Sing_up_at_start_menu1.IsChecked == true)
                 {
                     SingupStartMenu();
                 }
@@ -117,11 +115,11 @@ namespace FileInstaller
             // 引数
             //shortcut.Arguments = "/a /b /c";
             // 作業フォルダ
-            shortcut.WorkingDirectory = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            //shortcut.WorkingDirectory = System.Reflection.Assembly.GetExecutingAssembly().Location;
             // 実行時の大きさ 1が通常、3が最大化、7が最小化
             shortcut.WindowStyle = 1;
             // コメント
-            shortcut.Description = "テストのアプリケーション";
+            //shortcut.Description = "テストのアプリケーション";
 
             //ショートカットを作成
             shortcut.Save();
@@ -131,22 +129,13 @@ namespace FileInstaller
             System.Runtime.InteropServices.Marshal.FinalReleaseComObject(shell);
         }
 
-        private void DesktopShortcut1_Checked(object sender, RoutedEventArgs e)
-        {
-            isCreateDesktopShortcut = true;
-        }
 
         public void SingupStartMenu()
         {
-            CreateShortCut(System.IO.Path.Combine(
-                    Environment.GetFolderPath(Environment.SpecialFolder.StartMenu),
-                    System.IO.Path.GetFileName(FilePath.Text) + ".lnk"));
+            shortcutkey = Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) + @"\" + System.IO.Path.GetFileNameWithoutExtension(FilePath_To.Text) + ".lnk";
+            CreateShortCut(shortcutkey);
         }
 
-        private void Sing_up_at_start_menu1_Checked(object sender, RoutedEventArgs e)
-        {
-            isSingupStartMenu = true;
-        }
 
         private void FileSelectButtonTo_Click(object sender, RoutedEventArgs e)
         {
