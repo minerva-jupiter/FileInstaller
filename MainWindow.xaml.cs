@@ -26,6 +26,7 @@ namespace FileInstaller
         //変数宣言
         string FilePathTo = @"C:\Program Files\";
         string shortcutkey;
+        string exe;
 
         public MainWindow()
         {
@@ -65,17 +66,19 @@ namespace FileInstaller
             }
             else
             {
+                FileSystem.CopyDirectory(FilePath.Text, FilePath_To.Text, true);
                 //デスクトップショートカットを作成するかを確認
                 if (DesktopShortcut1.IsChecked == true)
                 {
                     shortcutkey = Environment.GetFolderPath(System.Environment.SpecialFolder.DesktopDirectory) +@"\" + System.IO.Path.GetFileNameWithoutExtension(FilePath_To.Text)+ ".lnk";
-                    CreateShortCut(shortcutkey);
+                    exe = shortcutkey + @"\" + System.IO.Path.GetFileName(FilePath_exe.Text);
+                    CreateShortCut(shortcutkey,exe);
                 }
                 if(Sing_up_at_start_menu1.IsChecked == true)
                 {
                     SingupStartMenu();
                 }
-                FileSystem.CopyDirectory(FilePath.Text, FilePath_To.Text, true);
+
                 System.Windows.MessageBox.Show("Done!");
             }
         }
@@ -91,14 +94,13 @@ namespace FileInstaller
             Run(sender, e);
         }
 
-        public void CreateShortCut(string shortcutPath)
+        public void CreateShortCut(string shortcutPath ,string targetPath)
         {
             //https://cammy.co.jp/technical/c_shortcut/
             // ショートカットそのもののパスは呼び出し側で指定
 
             // ショートカットのリンク先(起動するプログラムのパス)
             //string targetPath = Application.ExecutablePath;
-            string targetPath = FilePath_To.Text;
 
             // WshShellを作成
             Type t = Type.GetTypeFromCLSID(new Guid("72C24DD5-D70A-438B-8A42-98424B88AFB8"));
@@ -133,7 +135,8 @@ namespace FileInstaller
         public void SingupStartMenu()
         {
             shortcutkey = Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) + @"\" + System.IO.Path.GetFileNameWithoutExtension(FilePath_To.Text) + ".lnk";
-            CreateShortCut(shortcutkey);
+            exe = shortcutkey + @"\" + System.IO.Path.GetFileName(FilePath_exe.Text);
+            CreateShortCut(shortcutkey,exe);
         }
 
 
@@ -157,6 +160,27 @@ namespace FileInstaller
 
                 FilePath_To.Text = cofd.FileName + @"\" + System.IO.Path.GetFileName(FilePath.Text);
                 FilePathTo = cofd.FileName + System.IO.Path.GetFileName(FilePath.Text);
+            }
+        }
+
+        private void FileSelectButtonFrom_exe_Click(object sender, RoutedEventArgs e)
+        {
+            using (var cofd = new CommonOpenFileDialog()
+            {
+                Title = "フォルダを選択してください",
+                InitialDirectory = @"C:\Program Files\",
+                // フォルダ選択モードにする
+                IsFolderPicker = false,
+            })
+            {
+                if (cofd.ShowDialog() != CommonFileDialogResult.Ok)
+                {
+                    return;
+                }
+
+                // FileNameで選択されたフォルダを取得する
+                System.Windows.MessageBox.Show($"You selected '{cofd.FileName}'");
+                FilePath_exe.Text = cofd.FileName;
             }
         }
     }
